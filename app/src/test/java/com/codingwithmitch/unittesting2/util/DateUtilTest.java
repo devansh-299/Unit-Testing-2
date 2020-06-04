@@ -1,8 +1,5 @@
 package com.codingwithmitch.unittesting2.util;
 
-import com.codingwithmitch.unittesting2.models.Note;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestReporter;
@@ -21,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DateUtilTest {
 
     private static final String today = "05-2019";
+
+    // preferred method of testing methods that throw exception
     @Test
     public void testGetCurrentTimestamp_returnedTimestamp(){
         assertDoesNotThrow(new Executable() {
@@ -32,9 +31,23 @@ public class DateUtilTest {
         });
     }
 
+    // parameterized tests are used to test for multiple values that are passed inside @ValueSource
     @ParameterizedTest
     @ValueSource(ints = {0,1,2,3,4,5,6,7,8,9,10,11})
-    public void getMonthFromNumber_returnSuccess(int monthNumber, TestInfo testInfo, TestReporter testReporter){
+    /**
+     * @param monthNumber - it is fetched from the ints list one at a time and used inside the test
+     * @param testInfo - passed each time a month is passed, TestInfo [part of JUnit5] is used to
+     *                 inject information about the current test. Get more info from here :
+     *                 https://junit.org/junit5/docs/5.0.0/api/org/junit/jupiter/api/TestInfo.html
+     * @param testReporter - passed each time a month is passed, TestInfo [part of JUnit5] is to
+     *                     give publish information of each in correspondence with testInfo. This
+     *                     was adopted to void System.out.print... approach which is not advised.
+     *                     More details here:
+     *                     https://stackoverflow.com/questions/52514720/junit5-testreporter
+     *
+     */
+    public void getMonthFromNumber_returnSuccess(int monthNumber, TestInfo testInfo,
+                                                 TestReporter testReporter){
         assertEquals(months[monthNumber], DateUtil.getMonthFromNumber(monthNumbers[monthNumber]));
         System.out.println(monthNumbers[monthNumber] + " : " + months[monthNumber]);
     }

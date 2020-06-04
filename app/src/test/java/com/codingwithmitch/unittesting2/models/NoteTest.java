@@ -1,8 +1,6 @@
 package com.codingwithmitch.unittesting2.models;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class NoteTest {

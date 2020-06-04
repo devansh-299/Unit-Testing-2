@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This generic class is used to test LiveData. It creates on observer for the LiveData
+ * @param <T> - the DataType of the object that is to be observed
+ */
 public class LiveDataTestUtil<T> {
 
     public T getValue(final LiveData<T> liveData) throws InterruptedException {

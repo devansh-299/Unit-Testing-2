@@ -111,6 +111,7 @@ public class NoteViewModelTest {
         noteViewModel.setNote(note);
 
         // Assert
+        // Verify that noteRepository.insertNote(...) is never called
         verify(noteRepository, never()).insertNote(any(Note.class));
     }
 

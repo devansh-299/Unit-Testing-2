@@ -9,8 +9,6 @@ import com.codingwithmitch.unittesting2.ui.Resource;
 import com.codingwithmitch.unittesting2.util.InstantExecutorExtension;
 import com.codingwithmitch.unittesting2.util.LiveDataTestUtil;
 import com.codingwithmitch.unittesting2.util.TestUtil;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +31,7 @@ import static com.codingwithmitch.unittesting2.repository.NoteRepository.UPDATE_
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+// To enforce working on single thread while using JUnit5
 @ExtendWith(InstantExecutorExtension.class)
 public class NoteRepositoryTest {
 
@@ -43,6 +42,7 @@ public class NoteRepositoryTest {
 
     private NoteDao noteDao;
 
+    // calls this method before "Each" test, so new Database in every test
     @BeforeEach
     public void initEach(){
         noteDao = mock(NoteDao.class);
@@ -61,12 +61,14 @@ public class NoteRepositoryTest {
         // Arrange
         final Long insertedRow = 1L;
         final Single<Long> returnedData = Single.just(insertedRow);
+        // enforcing the condition on "Mocked" object
         when(noteDao.insertNote(any(Note.class))).thenReturn(returnedData);
 
         // Act
         final Resource<Integer> returnedValue = noteRepository.insertNote(NOTE1).blockingSingle();
 
         // Assert
+        // verify whether "MockedObject".insertNote() method was invoked or not
         verify(noteDao).insertNote(any(Note.class));
         verifyNoMoreInteractions(noteDao);
 

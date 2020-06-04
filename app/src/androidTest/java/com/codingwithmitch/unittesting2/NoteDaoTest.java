@@ -22,6 +22,9 @@ public class NoteDaoTest extends NoteDatabaseTest {
     public static final String TEST_CONTENT = "This is some test content";
     public static final String TEST_TIMESTAMP = "08-2018";
 
+    /** Enforces running everything on single thread unlike Android's usual UI and background thread
+     * This is JUnit4 approach, JUnit5 requires different approach!
+     */
     @Rule
     public InstantTaskExecutorRule rule = new InstantTaskExecutorRule();
 
@@ -34,7 +37,7 @@ public class NoteDaoTest extends NoteDatabaseTest {
         Note note = new Note(TestUtil.TEST_NOTE_1);
 
         // insert
-        getNoteDao().insertNote(note).blockingGet(); // wait until inserted
+        getNoteDao().insertNote(note).blockingGet(); // wait until inserted, used because of RxJava
 
         // read
         LiveDataTestUtil<List<Note>> liveDataTestUtil = new LiveDataTestUtil<>();
@@ -111,6 +114,7 @@ public class NoteDaoTest extends NoteDatabaseTest {
     /*
         Insert note with null title, throw exception
      */
+    // Used to specify the exception that is expected [TEST PASSED] to be thrown
     @Test(expected = SQLiteConstraintException.class)
     public void insert_nullTitle_throwSQLiteConstraintException() throws Exception{
 

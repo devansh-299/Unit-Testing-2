@@ -32,6 +32,7 @@ public class Note implements Parcelable {
         this.timestamp = timestamp;
     }
 
+    // Ignore added so that Room doesn't use this constructor by default
     @Ignore
     public Note(int id, @NonNull String title, String content, String timestamp) {
         this.id = id;
@@ -44,6 +45,7 @@ public class Note implements Parcelable {
     public Note() {
     }
 
+    // This constructor will be used for testing
     @Ignore
     public Note(Note note) {
         id = note.id;
@@ -136,7 +138,8 @@ public class Note implements Parcelable {
             return false;
         }
         Note note = (Note) obj;
-        return note.getId() == getId() && note.getTitle().equals(getTitle()) && note.getContent().equals(getContent());
+        return note.getId() == getId() && note.getTitle().equals(getTitle()) &&
+                 note.getContent().equals(getContent());
     }
 }
 

@@ -8,6 +8,10 @@ import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+/**
+ * This is JUnit5's way of enforcing working on single thread unlike Android's typical working on
+ * UI and background thread. Simply a boilerplate, use this directly!
+ */
 public class InstantExecutorExtension implements AfterEachCallback, BeforeEachCallback {
 
 
